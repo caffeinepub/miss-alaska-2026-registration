@@ -184,7 +184,7 @@ function RegistrationDetail({ reg }: { reg: Registration }) {
             {reg.bioPlatformStatement && (
               <div className="space-y-1">
                 <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">
-                  Bio / Platform Statement
+                  Brief story about yours
                 </span>
                 <p className="text-sm text-foreground leading-relaxed bg-white rounded-lg p-3 border border-border">
                   {reg.bioPlatformStatement}
@@ -378,16 +378,46 @@ export default function AdminPage() {
 
         {/* Logged in but not admin */}
         {isLoggedIn && !checkingAdmin && isAdmin === false && (
-          <Alert
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="space-y-4"
             data-ocid="admin.unauthorized.error_state"
-            variant="destructive"
           >
-            <AlertCircle className="w-4 h-4" />
-            <AlertDescription>
-              Your account does not have admin privileges. Please contact the
-              pageant administrator to request access.
-            </AlertDescription>
-          </Alert>
+            <Alert variant="destructive">
+              <AlertCircle className="w-4 h-4" />
+              <AlertDescription>
+                Your account does not have admin privileges.
+              </AlertDescription>
+            </Alert>
+            <Card className="border-amber-200 bg-amber-50">
+              <CardContent className="py-5 px-6 space-y-3">
+                <h3 className="font-semibold text-amber-900 flex items-center gap-2">
+                  <Crown className="w-4 h-4 text-amber-700" />
+                  How to claim admin access
+                </h3>
+                <ol className="text-sm text-amber-800 space-y-2 list-decimal list-inside">
+                  <li>Log out using the button above.</li>
+                  <li>
+                    Open your <strong>Caffeine project dashboard</strong> and
+                    copy the <strong>Admin URL</strong> for this app.
+                  </li>
+                  <li>
+                    Open that Admin URL in your browser — it contains a secret
+                    token that grants you admin access.
+                  </li>
+                  <li>
+                    Log in again from that Admin URL. You will automatically
+                    become the admin.
+                  </li>
+                </ol>
+                <p className="text-xs text-amber-700 mt-2">
+                  Note: Only the first person to log in using the Admin URL
+                  becomes admin.
+                </p>
+              </CardContent>
+            </Card>
+          </motion.div>
         )}
 
         {/* Admin content */}
@@ -556,10 +586,15 @@ export default function AdminPage() {
       </div>
 
       {/* Footer */}
-      <footer className="border-t border-border py-6 text-center text-sm text-muted-foreground mt-16">
+      <footer className="border-t border-border py-6 text-center text-sm text-muted-foreground mt-16 space-y-1">
         <p>
           © {new Date().getFullYear()} Miss Alaska 2026 — Alakple Beauty
-          Pageant. Built with love using{" "}
+          Pageant.
+        </p>
+        <p>
+          Built by{" "}
+          <span className="font-medium text-foreground">@digitasoja</span> with
+          love using{" "}
           <a
             href={`https://caffeine.ai?utm_source=caffeine-footer&utm_medium=referral&utm_content=${encodeURIComponent(window.location.hostname)}`}
             target="_blank"

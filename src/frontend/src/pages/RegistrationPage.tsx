@@ -29,6 +29,8 @@ interface FormData {
   contactNumber: string;
   emergencyContactName: string;
   emergencyContactPhone: string;
+  alakpleConnection: string; // "Mother" | "Father" | "Other"
+  hometown: string;
   // Section 2
   height: string;
   weight: string;
@@ -52,6 +54,8 @@ const initialForm: FormData = {
   contactNumber: "",
   emergencyContactName: "",
   emergencyContactPhone: "",
+  alakpleConnection: "",
+  hometown: "",
   height: "",
   weight: "",
   bust: "",
@@ -194,6 +198,10 @@ export default function RegistrationPage() {
       newErrors.emergencyContactName = "Emergency contact name is required";
     if (!form.emergencyContactPhone.trim())
       newErrors.emergencyContactPhone = "Emergency contact phone is required";
+    if (!form.alakpleConnection)
+      newErrors.alakpleConnection = "Please select your connection to Alakple";
+    if (form.alakpleConnection === "Other" && !form.hometown.trim())
+      newErrors.hometown = "Please enter your hometown";
     if (!form.bioPlatformStatement.trim())
       newErrors.bioPlatformStatement = "Bio/Platform statement is required";
     if (!headshotFile) newErrors.headshot = "Headshot photo is required";
@@ -603,6 +611,81 @@ export default function RegistrationPage() {
                   </div>
                 </div>
               </div>
+
+              {/* Are you from Alakple? */}
+              <div className="space-y-2">
+                <Label className="font-semibold">
+                  Are you from Alakple? <span className="text-rose">*</span>
+                </Label>
+                <div className="flex flex-col sm:flex-row gap-3">
+                  {["Mother", "Father", "Other"].map((option) => (
+                    <label
+                      key={option}
+                      className={`flex items-center gap-2 cursor-pointer rounded-lg border px-4 py-2.5 transition-all select-none ${
+                        form.alakpleConnection === option
+                          ? "border-primary bg-primary/10 font-semibold text-primary"
+                          : "border-border hover:border-primary/50"
+                      }`}
+                    >
+                      <input
+                        type="radio"
+                        name="alakpleConnection"
+                        value={option}
+                        checked={form.alakpleConnection === option}
+                        onChange={() => {
+                          setForm((prev) => ({
+                            ...prev,
+                            alakpleConnection: option,
+                            hometown: option !== "Other" ? "" : prev.hometown,
+                          }));
+                          if (errors.alakpleConnection) {
+                            setErrors((prev) => ({
+                              ...prev,
+                              alakpleConnection: undefined,
+                            }));
+                          }
+                        }}
+                        data-ocid="registration.alakpleConnection.radio"
+                        className="accent-primary"
+                      />
+                      {option}
+                    </label>
+                  ))}
+                </div>
+                {errors.alakpleConnection && (
+                  <p
+                    data-error
+                    className="text-xs text-destructive"
+                    data-ocid="registration.alakpleConnection.error_state"
+                  >
+                    {errors.alakpleConnection}
+                  </p>
+                )}
+                {form.alakpleConnection === "Other" && (
+                  <div className="space-y-1.5 mt-2">
+                    <Label htmlFor="hometown" className="font-semibold">
+                      Your Hometown <span className="text-rose">*</span>
+                    </Label>
+                    <Input
+                      id="hometown"
+                      data-ocid="registration.hometown.input"
+                      placeholder="Enter your hometown"
+                      value={form.hometown}
+                      onChange={update("hometown")}
+                      className={errors.hometown ? "border-destructive" : ""}
+                    />
+                    {errors.hometown && (
+                      <p
+                        data-error
+                        className="text-xs text-destructive"
+                        data-ocid="registration.hometown.error_state"
+                      >
+                        {errors.hometown}
+                      </p>
+                    )}
+                  </div>
+                )}
+              </div>
             </CardContent>
           </Card>
         </motion.div>
@@ -845,7 +928,7 @@ export default function RegistrationPage() {
               {/* Bio */}
               <div className="space-y-1.5">
                 <Label htmlFor="bioPlatformStatement" className="font-semibold">
-                  Bio / Platform Statement <span className="text-rose">*</span>
+                  Brief story about yours <span className="text-rose">*</span>
                   <span className="text-muted-foreground font-normal text-xs ml-1">
                     (100–200 words)
                   </span>
@@ -925,10 +1008,15 @@ export default function RegistrationPage() {
       </form>
 
       {/* Footer */}
-      <footer className="border-t border-border py-6 text-center text-sm text-muted-foreground">
+      <footer className="border-t border-border py-6 text-center text-sm text-muted-foreground space-y-1">
         <p>
           © {new Date().getFullYear()} Miss Alaska 2026 — Alakple Beauty
-          Pageant. Built with love using{" "}
+          Pageant.
+        </p>
+        <p>
+          Built by{" "}
+          <span className="font-medium text-foreground">@digitasoja</span> with
+          love using{" "}
           <a
             href={`https://caffeine.ai?utm_source=caffeine-footer&utm_medium=referral&utm_content=${encodeURIComponent(window.location.hostname)}`}
             target="_blank"
