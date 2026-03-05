@@ -1,0 +1,174 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── Playfair Display (display) ── */
+@font-face {
+  font-family: "Playfair Display";
+  src: url("/assets/fonts/PlayfairDisplay-Variable.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ── Figtree (body) ── */
+@font-face {
+  font-family: "Figtree";
+  src: url("/assets/fonts/Figtree-Variable.woff2") format("woff2");
+  font-weight: 300 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@layer base {
+  :root {
+    --radius: 0.875rem;
+
+    /* Miss Alaska 2026 — Pageant Palette
+       Deep royal purple + gold + rose + champagne */
+
+    /* Core backgrounds */
+    --background: 0.97 0.008 320;          /* warm white-blush */
+    --foreground: 0.18 0.035 295;          /* deep purple-charcoal */
+
+    /* Card */
+    --card: 1 0 0;                          /* pure white */
+    --card-foreground: 0.18 0.035 295;
+
+    /* Popover */
+    --popover: 1 0 0;
+    --popover-foreground: 0.18 0.035 295;
+
+    /* Primary — royal deep purple */
+    --primary: 0.38 0.155 295;
+    --primary-foreground: 0.98 0 0;
+
+    /* Secondary — soft rose */
+    --secondary: 0.94 0.035 355;
+    --secondary-foreground: 0.35 0.08 340;
+
+    /* Muted */
+    --muted: 0.95 0.015 320;
+    --muted-foreground: 0.52 0.04 295;
+
+    /* Accent — gold/amber */
+    --accent: 0.82 0.12 75;
+    --accent-foreground: 0.22 0.06 60;
+
+    /* Destructive */
+    --destructive: 0.577 0.245 27.325;
+    --destructive-foreground: 0.985 0 0;
+
+    /* Borders & inputs */
+    --border: 0.88 0.025 320;
+    --input: 0.88 0.025 320;
+    --ring: 0.55 0.13 295;
+
+    /* Chart colors */
+    --chart-1: 0.646 0.222 41.116;
+    --chart-2: 0.6 0.118 184.704;
+    --chart-3: 0.398 0.07 227.392;
+    --chart-4: 0.828 0.189 84.429;
+    --chart-5: 0.769 0.188 70.08;
+
+    /* Sidebar */
+    --sidebar: 0.985 0 0;
+    --sidebar-foreground: 0.18 0.035 295;
+    --sidebar-primary: 0.38 0.155 295;
+    --sidebar-primary-foreground: 0.985 0 0;
+    --sidebar-accent: 0.94 0.035 355;
+    --sidebar-accent-foreground: 0.35 0.08 340;
+    --sidebar-border: 0.88 0.025 320;
+    --sidebar-ring: 0.55 0.13 295;
+
+    /* Custom pageant tokens */
+    --gold: 0.78 0.145 78;
+    --gold-light: 0.92 0.09 80;
+    --gold-dark: 0.52 0.12 72;
+    --rose: 0.72 0.16 355;
+    --rose-light: 0.92 0.06 355;
+    --royal-purple: 0.38 0.155 295;
+    --royal-purple-light: 0.78 0.08 295;
+    --teal: 0.68 0.14 195;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: "Figtree", sans-serif;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: "Playfair Display", serif;
+  }
+}
+
+/* Decorative patterns */
+.pageant-bg {
+  background-image:
+    radial-gradient(circle at 20% 10%, oklch(0.82 0.06 355 / 0.15) 0%, transparent 40%),
+    radial-gradient(circle at 80% 90%, oklch(0.78 0.145 78 / 0.10) 0%, transparent 40%),
+    radial-gradient(circle at 50% 50%, oklch(0.38 0.155 295 / 0.04) 0%, transparent 60%);
+}
+
+.section-card-1 {
+  border-top: 4px solid oklch(0.38 0.155 295);
+}
+.section-card-2 {
+  border-top: 4px solid oklch(0.72 0.16 355);
+}
+.section-card-3 {
+  border-top: 4px solid oklch(0.78 0.145 78);
+}
+
+.gold-gradient {
+  background: linear-gradient(135deg, oklch(0.82 0.14 78), oklch(0.65 0.12 68), oklch(0.82 0.14 78));
+}
+
+.section-number-1 {
+  background: linear-gradient(135deg, oklch(0.38 0.155 295), oklch(0.55 0.12 295));
+  color: white;
+}
+.section-number-2 {
+  background: linear-gradient(135deg, oklch(0.62 0.18 350), oklch(0.75 0.14 355));
+  color: white;
+}
+.section-number-3 {
+  background: linear-gradient(135deg, oklch(0.68 0.13 75), oklch(0.78 0.14 78));
+  color: white;
+}
+
+.upload-zone {
+  border: 2px dashed oklch(0.78 0.145 78 / 0.5);
+  background: oklch(0.97 0.02 78 / 0.3);
+  transition: all 0.2s ease;
+}
+.upload-zone:hover {
+  border-color: oklch(0.78 0.145 78);
+  background: oklch(0.95 0.03 78 / 0.4);
+}
+
+.sparkle-divider {
+  position: relative;
+  text-align: center;
+}
+.sparkle-divider::before,
+.sparkle-divider::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: calc(50% - 2rem);
+  height: 1px;
+  background: linear-gradient(90deg, transparent, oklch(0.78 0.145 78 / 0.5), transparent);
+}
+.sparkle-divider::before { left: 0; }
+.sparkle-divider::after { right: 0; }
+
+/* Focus visible ring */
+*:focus-visible {
+  outline: 2px solid oklch(0.38 0.155 295);
+  outline-offset: 2px;
+}
