@@ -381,40 +381,117 @@ export default function AdminPage() {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="space-y-4"
+            className="space-y-5"
             data-ocid="admin.unauthorized.error_state"
           >
             <Alert variant="destructive">
               <AlertCircle className="w-4 h-4" />
               <AlertDescription>
-                Your account does not have admin privileges.
+                Your account does not have admin privileges. Please follow the
+                steps below to gain access.
               </AlertDescription>
             </Alert>
+
             <Card className="border-amber-200 bg-amber-50">
-              <CardContent className="py-5 px-6 space-y-3">
-                <h3 className="font-semibold text-amber-900 flex items-center gap-2">
-                  <Crown className="w-4 h-4 text-amber-700" />
-                  How to claim admin access
-                </h3>
-                <ol className="text-sm text-amber-800 space-y-2 list-decimal list-inside">
-                  <li>Log out using the button above.</li>
-                  <li>
-                    Open your <strong>Caffeine project dashboard</strong> and
-                    copy the <strong>Admin URL</strong> for this app.
+              <CardHeader className="pb-2 pt-5 px-6">
+                <CardTitle className="text-amber-900 text-base flex items-center gap-2">
+                  <Crown className="w-5 h-5 text-amber-700" />
+                  How to get admin access
+                </CardTitle>
+                <p className="text-sm text-amber-800 mt-1">
+                  You need to log in using a special <strong>Admin URL</strong>{" "}
+                  that contains a secret token. Here is how to find it:
+                </p>
+              </CardHeader>
+              <CardContent className="pb-5 px-6 space-y-4">
+                <ol className="space-y-4">
+                  <li className="flex items-start gap-3">
+                    <span className="flex-shrink-0 w-7 h-7 rounded-full bg-amber-200 text-amber-900 font-bold text-sm flex items-center justify-center mt-0.5">
+                      1
+                    </span>
+                    <div>
+                      <p className="text-sm font-semibold text-amber-900">
+                        Log out first
+                      </p>
+                      <p className="text-sm text-amber-800 mt-0.5">
+                        Click the <strong>"Log Out"</strong> button at the top
+                        right of this page.
+                      </p>
+                    </div>
                   </li>
-                  <li>
-                    Open that Admin URL in your browser — it contains a secret
-                    token that grants you admin access.
+                  <li className="flex items-start gap-3">
+                    <span className="flex-shrink-0 w-7 h-7 rounded-full bg-amber-200 text-amber-900 font-bold text-sm flex items-center justify-center mt-0.5">
+                      2
+                    </span>
+                    <div>
+                      <p className="text-sm font-semibold text-amber-900">
+                        Open your Caffeine project
+                      </p>
+                      <p className="text-sm text-amber-800 mt-0.5">
+                        Go to{" "}
+                        <a
+                          href="https://caffeine.ai"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="underline font-medium hover:text-amber-900"
+                          data-ocid="admin.caffeine_dashboard.link"
+                        >
+                          caffeine.ai
+                        </a>
+                        , find your <strong>Miss Alaska 2026</strong> project
+                        card, and <strong>click the project name</strong> to
+                        open the project detail page.
+                      </p>
+                    </div>
                   </li>
-                  <li>
-                    Log in again from that Admin URL. You will automatically
-                    become the admin.
+                  <li className="flex items-start gap-3">
+                    <span className="flex-shrink-0 w-7 h-7 rounded-full bg-amber-200 text-amber-900 font-bold text-sm flex items-center justify-center mt-0.5">
+                      3
+                    </span>
+                    <div>
+                      <p className="text-sm font-semibold text-amber-900">
+                        Find the Admin URL inside the project
+                      </p>
+                      <p className="text-sm text-amber-800 mt-0.5">
+                        Inside the project detail page, look for a section or
+                        button labeled <strong>"Admin URL"</strong>,{" "}
+                        <strong>"Admin Access"</strong>, or a key icon. It may
+                        also be listed under a <strong>"Links"</strong> or{" "}
+                        <strong>"Share"</strong> section. Copy that link — it
+                        will look like the regular app URL but with{" "}
+                        <code className="bg-amber-100 px-1 rounded text-xs">
+                          caffeineAdminToken=...
+                        </code>{" "}
+                        at the end.
+                      </p>
+                    </div>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <span className="flex-shrink-0 w-7 h-7 rounded-full bg-amber-200 text-amber-900 font-bold text-sm flex items-center justify-center mt-0.5">
+                      4
+                    </span>
+                    <div>
+                      <p className="text-sm font-semibold text-amber-900">
+                        Open that Admin URL and log in
+                      </p>
+                      <p className="text-sm text-amber-800 mt-0.5">
+                        Paste the Admin URL into your browser, then click{" "}
+                        <strong>"Login with Internet Identity"</strong>. Admin
+                        access will be granted automatically.
+                      </p>
+                    </div>
                   </li>
                 </ol>
-                <p className="text-xs text-amber-700 mt-2">
-                  Note: Only the first person to log in using the Admin URL
-                  becomes admin.
-                </p>
+
+                <div className="mt-2 p-3 bg-amber-100 rounded-lg border border-amber-300">
+                  <p className="text-xs text-amber-800">
+                    <strong>Still stuck?</strong> On caffeine.ai, click your
+                    profile icon (top right) and use{" "}
+                    <strong>"Share feedback"</strong> to contact Caffeine
+                    support. Include your Project ID (shown when you click the
+                    project name).
+                  </p>
+                </div>
               </CardContent>
             </Card>
           </motion.div>
